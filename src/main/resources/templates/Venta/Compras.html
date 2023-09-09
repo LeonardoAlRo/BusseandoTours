@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/Plantilla :: head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+<link th:href="@{/css/bootstrap/bootstrap.css}" rel="stylesheet">
+
+</head>
+<body>
+
+	<header th:replace="/Plantilla :: header"></header>
+
+
+	<br>
+	
+	
+	<div class="container">
+
+		<br>
+			
+				
+					
+		<div class="row">
+			<h2 class="text-success" style="letter-spacing: 3px;" align="center">LISTA DE
+				COMPRAS</h2> <br><br>
+			
+		</div>
+		<br>
+		<h5>
+		<br>
+			
+			<table class="table table-striped table-bordered">
+			
+										
+				<thead class="table-dark">
+					<tr>
+						<th>Id</th>
+						<th>Fecha de Emision</th>
+						<th>Paquete</th>
+						<th>Precio Paquete</th>
+						<th>N° Pasajeros</th>
+						<th>Total</th>
+						<th>Tipo de Comprobante</th>
+						<th>E-MAIL</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr th:each="venta: ${ventas}">
+							<td th:text="${venta.IdVentas}">Id</td>
+							<td th:text="*{#temporals.format(venta.FechaVenta, 'dd/MM/yyyy')}">Fecha Emision</td>
+							<td th:text="${venta.Reserva.Paquete.lugarDestino}">Paquete</td>
+							<td th:text="${venta.Reserva.Paquete.precioUnidad}">precioU</td>
+							<td th:text="${venta.Reserva.nroPasajeros}">Pasajeros</td>
+							<td th:text="${venta.total}">precioU</td>
+							<td th:text="${venta.TipoComprobante}">TipoComp</td>
+							<td th:text="${venta.correo}">email</td>
+						</tr>
+
+				</tbody>
+				
+			</table>
+		</h5>
+	</div>
+	
+</body>
+
+</html>

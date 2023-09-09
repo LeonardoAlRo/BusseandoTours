@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/Plantilla :: head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+<link th:href="@{/css/bootstrap/bootstrap.css}" rel="stylesheet">
+
+</head>
+<body>
+
+	<header th:replace="/Plantilla :: header"></header>
+
+
+	<br>
+	<br>
+
+	<div class="container">
+		<div class="row">
+			<h2 class="text-success" style="letter-spacing: 3px;" align="center">LISTA
+				DE ALIMENTOS</h2>
+			<br> <br>
+			<!-- Realizar la modificacion -->
+
+			<div class="col-lg-3">
+				<a th:href="@{/alimentacion/agregar}"
+					class="btn btn-outline-success btn-lg"
+					th:text="'Nueva Alimentación'" title="Crear Nuevo Registro"></a>
+			</div>
+		</div>
+		<br>
+
+
+		<table class="table table-striped table-bordered">
+			<thead class="table-dark">
+				<tr>
+					<th>#</th>
+					<th>Costo</th>
+					<th>Dias</th>
+					<th>Tipo</th>
+					<th>Editar</th>
+					<th>Eliminar</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="alimentacion: ${alimentaciones}">
+					<td th:text="${alimentacion.idAlimentacion}"></td>
+					<td th:text="${alimentacion.costo}"></td>
+					<td th:text="${alimentacion.dias}"></td>
+					<td th:text="${alimentacion.tipo}"></td>
+					<!-- EJECUTAR LA EDICION Y ELIMINACION -->
+					<td><a class="btn btn-success btn-sm-lg" th:text="Editar"
+						title="Editar Registro"></a></td>
+					<td><a class="btn btn-danger btn-sm-lg" th:text="Eliminar"
+						title="Eliminar Registro"
+						onclick="return confirm('Está seguro de eliminar el registro?')"></a></td>
+				</tr>
+
+			</tbody>
+
+		</table>
+
+	</div>
+
+
+
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+</body>
+</html>

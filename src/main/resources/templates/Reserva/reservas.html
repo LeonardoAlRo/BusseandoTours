@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/Plantilla :: head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+<link th:href="@{/css/bootstrap/bootstrap.css}" rel="stylesheet">
+
+</head>
+<body>
+
+	<header th:replace="/Plantilla :: header"></header>
+
+
+	<br>
+
+
+	<div class="container">
+
+		<br>
+
+
+
+		<div class="row">
+			<div class="col-6">
+				<h1 class="text-success" style="letter-spacing: 3px;" align="left">LISTA
+					DE RESERVAS</h1>
+			</div>
+			<div class="col-6">
+				<div class="d-flex justify-content-end ml-3">
+					<a th:href="@{/ventas/exportarPDF}" class="btn btn-secondary">Exportar
+						PDF </a> <a th:href="@{/ventas/exportarExcel}" class="btn btn-success">Exportar
+						a Excel</a>
+				</div>
+			</div>
+		</div>
+
+		<br>
+		<div>
+
+
+			<div class="row">
+				<div class="col-md-12">
+					<form>
+						<div class="d-flex justify-content-between align-items-center">
+							<div class="form-group mb-0">
+								<input type="text" name="palabraClave" class="form-control"
+									id="palabraClave" th:value="${palabraClave}"
+									style="width: 300px;" placeholder="YYYY-MM-dd">
+							</div>
+							<div class="ml-3">
+								<input type="submit" class="btn btn-outline-success btn-lg"
+									value="buscar"> <input type="submit"
+									class="btn btn-outline-success btn-lg" value="Limpiar"
+									onclick="limpiarCampos()">
+							</div>
+					</form>
+				</div>
+			</div>
+			<br> <br>
+			<h5>
+				<br>
+
+				<table class="table table-striped table-bordered">
+
+
+					<thead class="table-dark">
+						<tr>
+							<th>Id</th>
+							<th>USUARIO</th>
+							<th>Fecha de Reserva</th>
+							<th>Número de Pasajeros</th>
+							<th>PAQUETE TURISTICO</th>
+							<th>USUARIO</th>
+							<th>TIPO DOCUMENTO</th>
+							<th>N° DOCUMENTO</th>
+							<th>ESTADO</th>
+							<th>VER PASAJEROS</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="reserva: ${reservas}">
+							<td th:text="${reserva.IdReserva}">Id</td>
+							<td th:text="${reserva.Usuario.get(0).nombre}">USUARIO</td>
+							<td
+								th:text="*{#temporals.format(reserva.fechaReserva, 'dd/MM/yyyy')}">Fecha
+								Reserva</td>
+							<td th:text="${reserva.nroPasajeros}">NumeroPasajeros</td>
+							<td th:text="${reserva.Paquete.lugarDestino}">Paquete</td>
+							<td th:text="${reserva.nroPasajeros}">NumeroPasajeros</td>
+							<td th:text="${reserva.tipoDoc}">TipoDpc</td>
+							<td th:text="${reserva.nroDoc}">nroDocumento</td>
+							<td th:text="${reserva.estado}">TipoDpc</td>
+							<td><a
+								th:href="@{/pasajero/{idReserva}/listarP(idReserva=${reserva.idReserva})}"
+								class="btn btn-secondary btn-sm-lg" th:text="VerPasajero"
+								title="VerPAsajero"></a></td>
+
+						</tr>
+
+					</tbody>
+
+				</table>
+			</h5>
+		</div>
+	</div>
+
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+
+</body>
+
+</html>

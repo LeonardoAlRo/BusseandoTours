@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/Plantilla :: head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+<link th:href="@{/css/bootstrap/bootstrap.css}" rel="stylesheet">
+
+</head>
+<body>
+	<header th:replace="/Plantilla :: header"></header>
+
+	<br>
+	<h5>
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-9">
+					<div class="card mt-6">
+
+
+						<div class="card-header bg-success text-white"
+							style="letter-spacing: 3px;">FORMULARIO : NUEVO SERVICIO
+							HOTELERO</div>
+
+						<div class="card-body">
+
+
+							<form th:action="@{/serviciohoteleria/save}"
+								th:object="${serviciohotelerias}" method="post"
+								enctype="multipart/form-data">
+
+
+
+								<div class="form-group row">
+									<label for="descripcion" class="col-md-2">Descripcion:</label><br>
+									<div class="col-md-10">
+										<input type="text" th:field="*{descripcion}"
+											class="form-control form-control-lg" id="descripcion"
+											placeholder="Descripcion de la Hoteleria">
+									</div>
+								</div>
+								<br>
+
+								<div class="form-group row">
+									<label for="diasServicio" class="col-md-2">Dias de
+										Servicio:</label><br>
+									<div class="col-md-10">
+										<input type="text" th:field="*{diasServicio}"
+											class="form-control form-control-lg" id="diasServicio"
+											placeholder="Cantidad de dias de Servicio">
+									</div>
+								</div>
+								<br>
+
+								<div class="form-group row">
+									<label for="lugar" class="col-md-2">Lugar:</label>
+									<div class="col-md-10">
+										<input type="text" th:field="*{lugar}"
+											class="form-control form-control-lg" id="lugar"
+											placeholder="Lugar de la Hoteleria">
+									</div>
+
+								</div>
+								<br>
+
+								<div class="form-group row">
+									<label for="tipo" class="col-md-2">Tipo:</label>
+									<div class="col-md-10">
+										<input type="text" th:field="*{tipo}"
+											class="form-control form-control-lg" id="tipo"
+											placeholder="Tipo de la Hoteleria por estrella">
+									</div>
+
+								</div>
+
+								<br>
+								<div class="card-footer bg-success">
+									<input type="submit" class="btn btn-outline-light me-2 btn-lg" />
+								</div>
+								<br>
+
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</h5>
+</body>
+</html>

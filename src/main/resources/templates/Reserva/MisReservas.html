@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/Plantilla :: head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+<link th:href="@{/css/bootstrap/bootstrap.css}" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+	<header th:replace="/Plantilla :: header"></header>
+
+
+	<br>
+	
+	
+	<div class="container">
+
+		<br>
+			
+				
+					
+		<div class="row">
+			<h2 class="text-success" style="letter-spacing: 3px;" align="center">LISTA DE
+				RESERVAS</h2> <br><br>
+			
+		</div>
+		<br>
+		<h5>
+		<br>
+			
+			<table class="table table-striped table-bordered">
+			
+										
+				<thead class="table-dark">
+						<tr>
+							<th>Id</th>
+							<th>Fecha de Reserva</th>
+							<th>Número de Pasajeros</th>
+							<th>N° Pasajeros Registrado</th>
+							<th>PAQUETE TURISTICO</th>
+							<th>PRECIO</th>
+							<th>TIPO DOCUMENTO</th>
+							<th>N° DOCUMENTO</th>
+							<th>USUARIO</th>
+							<th>Eliminar</th>
+							<th>Pagar</th>
+							<th>Pasajeros</th>
+							<th>ESTADO</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="reserva: ${reservas}">
+							<td th:text="${reserva.IdReserva}">Id</td>
+							<td th:text="*{#temporals.format(reserva.fechaReserva, 'dd/MM/yyyy')}">Fecha Reserva</td>
+							<td th:text="${reserva.nroPasajeros}">NumeroPasajeros</td>
+							<td th:text="${reserva.nroRegistrados}">NumeroPasajerosRegistrados</td>
+							<td th:text="${reserva.Paquete.lugarDestino}">Paquete</td>
+							<td th:text="${reserva.Paquete.precioUnidad}">Precio</td>
+							<td th:text="${reserva.tipoDoc}">TipoDpc</td>
+							<td th:text="${reserva.nroDoc}">nroDocumento</td>
+							<td th:text="${reserva.Usuario.get(0).nombre}">USUARIO</td>
+							<td><a th:href="@{/reservas/delete/}+${reserva.idReserva}"
+							class="btn btn-danger btn-sm-lg" th:text="Eliminar"
+							title="Eliminar Registro"
+							onclick="return confirm('Está seguro de eliminar la reserva?')"></a></td>	
+							<td><a th:href="@{/pasajero/{idReserva}/agregar(idReserva=${reserva.idReserva})}"
+							class="btn btn-success btn-sm-lg" th:text="Pagar"
+							title="Pagar" 
+							onclick="return confirm('Está entrando al proceso de pago')"></a></td>
+							<td><a th:href="@{/pasajero/{idReserva}/listarP(idReserva=${reserva.idReserva})}"
+							class="btn btn-secondary btn-sm-lg" th:text="VerPasajero"
+							title="VerPAsajero" ></a></td>
+							<td th:text="${reserva.estado}">TipoDpc</td>
+						</tr>
+
+					</tbody>
+				
+			</table>
+		</h5>
+	</div>
+	<script>
+  // Dar valor al idPaquete que se registrará
+  var paqueteInput = document.getElementById("Paquete");
+  
+  // Obtener valor del thymeleaf
+  paqueteInput.value = "[[${idPaquete}]]";
+  
+</script>
+</body>
+
+</html>

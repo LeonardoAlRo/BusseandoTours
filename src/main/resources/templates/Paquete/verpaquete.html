@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title th:text="${titulo}">Busseando Tours</title>
+<link th:href="@{/css/bootstrap/bootstrap.css}" rel="stylesheet">
+
+<header th:replace="/Plantilla :: header"></header>
+</head>
+
+
+
+<body>
+
+	<div class="container-md">
+		<br>
+		<h2 class="text-success" style="letter-spacing: 3px;">DETALLE DEL
+			PAQUETE SELECCIONADO</h2>
+		<br>
+
+		<div class="card" style="width: 100rem;">
+			<div class="row">
+				<div class="col-md-6">
+					<img th:src="
+					@{/imagenes/__${paquete.imagen}__}"
+						class="img-fluid rounded w-100">
+				</div>
+				<div class="col-md-6">
+					<div class="mb-3">
+
+						<div class="row">
+
+							<div class="col-md-6">
+								<div class="border border-success text-center border-3">
+									<h3 class="text-success">ORIGEN</h3>
+
+									<h2 th:text="${paquete.lugarSalida}"></h2>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="border border-success text-center border-3">
+									<h3 class="text-success">DESTINO</h3>
+									<h2 class="card-title" th:text="${paquete.lugarDestino}"></h2>
+								</div>
+							</div>
+						</div>
+						<br> <br>
+
+						<div>
+							<h3>DESCRIPCION</h3>
+							<p class="card-text" th:text="${paquete.descripcion}"></p>
+
+							<h4 class="card-text"
+								th:text="|Fecha de salida: ${#temporals.format(paquete.fechaSalida, 'dd/MM/yyyy')}|"></h4>
+							<h4 class="card-text"
+								th:text="|Precio: S/${paquete.precioUnidad}|"></h4>
+							<br>
+							<div>
+								<div class="form-group row">
+								    <label class="col-sm-6 col-form-label font-weight-bold" style="font-size: 18px; font-family: 'Arial', sans-serif;">Servicio Alimentario:</label>
+								    <div class="col-sm-6">
+								        <input type="text" id="alimentario" class="form-control" readonly>
+								    </div>
+								</div>
+        							
+								<div class="form-group row">
+								    <label class="col-sm-6 col-form-label font-weight-bold" style="font-size: 18px; font-family: 'Arial', sans-serif;">Servicio Hoteleria:</label>
+								    <div class="col-sm-6">
+								        <input type="text" id="hoteleria" class="form-control" readonly>
+								    </div>
+								</div>
+								
+								<div class="form-group row">
+								    <label class="col-sm-6 col-form-label font-weight-bold" style="font-size: 18px; font-family: 'Arial', sans-serif;">Servicio Bus:</label>
+								    <div class="col-sm-6">
+								        <input type="text" id="bus" class="form-control" readonly>
+								    </div>
+								</div>
+								
+								<div class="form-group row">
+								    <label class="col-sm-6 col-form-label font-weight-bold" style="font-size: 18px; font-family: 'Arial', sans-serif;">Servicio Guia:</label>
+								    <div class="col-sm-6">
+								        <input type="text" id="guia" class="form-control" readonly>
+								    </div>
+								</div>
+							</div>
+							
+							<br>
+							<div class="row">
+								<div class="col-md-9">
+									<a th:href="@{/}" class="btn btn-secondary btn-lg"
+										role="button">RETORNAR</a>
+								</div>
+								<div class="col-md-1">
+								<a th:href="@{/reservas/{idPaquete}/agregarR(idPaquete=${paquete.idPaquete})}"
+									
+										class="btn btn-success btn-lg" role="button">RESERVAR</a>
+								</div>
+
+
+
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+<script>
+var alimentario = document.getElementById("alimentario");
+var guia = document.getElementById("guia");
+var hoteleria = document.getElementById("hoteleria");
+var bus = document.getElementById("bus");
+
+alimentario.value = "[[${paquete.ItemsAlimentacion[0].tipo}]]";
+hoteleria.value = "[[${paquete.ItemsHoteleria[0].tipo}]]";
+guia.value = "[[${paquete.ItemsGuia[0].nombre}]]";
+bus.value = "[[${paquete.ItemsBuses[0].tipo}]]";
+</script>
+</body>
+<footer th:replace="/Plantilla :: footer"></footer>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/Plantilla :: head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+<link th:href="@{/css/bootstrap/bootstrap.css}" rel="stylesheet">
+
+</head>
+<body>
+	<header th:replace="/Plantilla :: header"></header>
+
+	<br>
+	<h5>
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-9">
+					<div class="card mt-3">
+
+
+
+						<div class="card-header bg-success text-white"
+							style="letter-spacing: 3px;">FORMULARIO : NUEVO GUIA</div>
+
+						<div class="card-body">
+
+							<!-- metodo para guardar con save -->
+							<form th:action="@{/guia/save}" th:object="${guias}"
+								method="post" enctype="multipart/form-data">
+
+
+
+								<div class="form-group row">
+									<label for="nombre"
+										class="col-md-4 col-form-label text-md-right">Nombre:</label><br>
+									<br>
+									<div class="col-md-8">
+										<input type="text" th:field="*{nombre}"
+											class="form-control form-control-lg" id="nombre"
+											placeholder="Nombre Completo">
+									</div>
+								</div>
+								<br>
+
+								<div class="form-group row">
+									<label for="apellidoPaterno"
+										class="col-md-4 col-form-label text-md-right">Apellido
+										Paterno:</label>
+									<div class="col-md-8">
+										<input type="text" th:field="*{apellidoPaterno}"
+											class="form-control form-control-lg" id="apellidoPaterno"
+											placeholder="Apellido Paterno">
+									</div>
+								</div>
+								<br>
+
+								<div class="form-group row">
+									<label for="apellidoMaterno"
+										class="col-md-4 col-form-label text-md-right">Apellido
+										Materno:</label> <br> <br>
+									<div class="col-md-8">
+										<input type="text" th:field="*{apellidoMaterno}"
+											class="form-control form-control-lg" id="apellidoMaterno"
+											placeholder="Apellido Materno">
+									</div>
+
+								</div>
+								<br>
+
+								<div class="form-group row">
+									<label for="correo"
+										class="col-md-4 col-form-label text-md-right">Correo
+										Electronico:</label><br> <br>
+									<div class="col-md-8">
+										<input type="text" th:field="*{correo}"
+											class="form-control form-control-lg" id="correo"
+											placeholder="Correo Electronico">
+									</div>
+								</div>
+
+								<br>
+
+								<div class="form-group row">
+									<label for="telefono"
+										class="col-md-4 col-form-label text-md-right">Telefono:</label><br>
+									<br>
+									<div class="col-md-8">
+										<input type="tel" th:field="*{telefono}"
+											class="form-control form-control-lg" id="telefono"
+											placeholder="Telefono">
+									</div>
+								</div>
+
+								<br>
+
+								<div class="form-group row">
+									<label for="direccion"
+										class="col-md-4 col-form-label text-md-right">Dirección:</label>
+									<br> <br>
+									<div class="col-md-8">
+										<input type="text" th:field="*{direccion}"
+											class="form-control form-control-lg" id="direccion"
+											placeholder="Dirección">
+									</div>
+
+								</div>
+								<br />
+								<div class="form-group row">
+									<label for="tipoDoc"
+										class="col-md-4 col-form-label text-md-right">Tipo de
+										Documento:</label> <br> <br>
+									<div class="col-md-8">
+										<input type="text" th:field="*{tipoDoc}"
+											class="form-control form-control-lg" id="tipoDoc"
+											placeholder="Tipo de Documento">
+									</div>
+
+								</div>
+								<br />
+								<div class="form-group row">
+									<label for="numeroDoc"
+										class="col-md-4 col-form-label text-md-right">N° de
+										Documento:</label> <br> <br>
+									<div class="col-md-8">
+										<input type="text" th:field="*{numeroDoc}"
+											class="form-control form-control-lg" id="numeroDoc"
+											placeholder="Numero de Documento">
+									</div>
+
+								</div>
+								<br>
+								<div class="card-footer bg-success">
+									<input type="submit" class="btn btn-outline-light me-2 btn-lg" />
+								</div>
+								<br>
+
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</h5>
+
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+</body>
+</html>

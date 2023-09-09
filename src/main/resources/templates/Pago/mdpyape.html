@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Paga con YAPE</title>
+
+<!-- Core theme CSS (includes Bootstrap)-->
+<link th:href="@{/css/styles.css}" rel="stylesheet" />
+
+<body>
+<header th:replace="/Plantilla :: header"></header>
+
+
+
+
+	<div class="container text-center">
+		<form th:action="@{/ventas/save}" method="post" th:object="${venta}" enctype="multipart/form-data">
+			
+			
+				
+				<div class="card" style="width: 94rem;">
+				<h1 class="text-success" style="letter-spacing: 3px;">YAPE</h1>
+				
+				
+				<br>
+				
+				
+				<h2>Escanee nuestro código QR o agregue nuestro número de
+					celular y realice el pago con Yape.</h2>
+
+
+				<br>
+
+				<div class="row  justify-content-center align-items-center">
+					<div class="col-md-1 col-lg-2 col-xl-30">
+						<img src="/img/qr.jpg" class="img-fluid" alt="Sample image">
+					</div>
+
+					<h3>
+						NOMBRE<br> <br> <span class="border border-success">957317275</span>
+					</h3>
+
+				</div>
+
+				<div class="h5 d-block mb-3 text-muted">
+									<p>
+										INSTRUCCIONES:<br> 1. Coloca en el monto el total a pagar.<br>
+										2. Coloca en la descripción el número del pedido.<br> 3.
+										Yapea y envíanos la captura de pantalla por <a
+											class="navbar-brand text-success"
+											href="https://web.whatsapp.com/">Whatsapp.</a>
+									</p>
+				</div>
+
+				<hr>
+
+
+				<input type="hidden" th:field="*{reserva}" id="Reserva"></input>
+				<input type="hidden" th:field="*{usuario}" id="usuarioId" />
+				<input type="hidden" th:field="*{documentoGenerado}" id="estado" />
+				<input type="hidden" th:field="*{correo}" id="usuarioEmail" />
+				
+				<div class="container mt-5">
+					<h4>
+    				<strong>Total a pagar:
+        			<input type="text" th:field="*{total}"  id="Total" readonly>
+        			
+    				</strong>
+					</h4>
+
+            		<h4><strong>Fecha:</strong>
+            		<input type="date" th:field="*{fechaVenta}"  id="FechaVenta" readonly>
+            		</h4>
+            
+            	<h4>
+    			
+        		<label class="m-2">
+            	<input type="radio" name="TipoComprobante" th:field="*{TipoComprobante}" value="BOLETA">
+            	BOLETA
+        		</label>
+        		<label class="m-2">
+           	 	<input type="radio" name="TipoComprobante" th:field="*{TipoComprobante}" value="FACTURA">
+            	FACTURA
+        		</label>
+    			</h4>
+				
+				
+				
+            	<div class="card-footer bg-success text-center">
+                <button type="submit" class="btn btn-outline-light me-2 btn-lg">PAGAR</button>
+           		</div>
+				
+				</div>		
+		</form>
+	</div>
+	
+<script>
+		var today = new Date();
+		var dd = String(today.getDate()).padStart(2, '0');
+		var mm = String(today.getMonth() + 1).padStart(2, '0'); //Enero es 0
+		var yyyy = today.getFullYear();
+		var formattedDate = yyyy + '-' + mm + '-' + dd;
+		document.getElementById("FechaVenta").value = formattedDate;
+</script>	
+  
+<script>
+  var usuarioId = "[[${#authentication.principal.id}]]";
+  var usuarioEmail = "[[${#authentication.principal.username}]]";
+  var reservaInput = document.getElementById("Reserva");
+  var Total = document.getElementById("Total");
+  var estado = document.getElementById("estado");
+  // Obtener valor del thymeleaf
+  reservaInput.value = "[[${reserva.idReserva}]]";
+  Total.value = "[[${reserva.nroPasajeros}]]" * "[[${reserva.Paquete.precioUnidad}]]";
+  document.getElementById("usuarioId").value = usuarioId;
+  estado.value = 0;
+  document.getElementById("usuarioEmail").value = usuarioEmail;
+</script>
+
+</body>
+
+
+<footer th:replace="/Plantilla :: footer"></footer>
+
+
+
+
+<!-- Bootstrap core JS-->
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<!-- Core theme JS-->
+<script th:src="@{/js/scripts.js}"></script>
+</body>
+</html>

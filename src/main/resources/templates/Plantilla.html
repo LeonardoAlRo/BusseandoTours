@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:fragment="head">
+<meta charset="UTF-8">
+<title>Busseando</title>
+<link th:href="@{/css/bootstrap/bootstrap.css}" rel="stylesheet">
+<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+
+</head>
+<body>
+	<header class="p-4 bg-success">
+	
+		<nav>
+
+
+			<div class="alert alert-success alert-dismissible fade show"
+				role="alert" th:if="${success != null}">
+				<label th:text="${success}"></label>
+				<button type="button" class="btn-close" data-bs-dismiss="alert"
+					aria-label="Close"></button>
+			</div>
+
+			<div class="alert alert-danger alert-dismissible fade show"
+				role="alert" th:if="${error != null}">
+				<label th:text="${error}"></label>
+				<button type="button" class="btn-close" data-bs-dismiss="alert"
+					aria-label="Close"></button>
+			</div>
+
+			<div class="alert alert-warning alert-dismissible fade show"
+				role="alert" th:if="${warning != null}">
+				<label th:text="${warning}"></label>
+
+				<button type="button" class="btn-close" data-bs-dismiss="alert"
+					aria-label="Close"></button>
+			</div>
+		</nav>
+
+		<div class="container">
+			<div
+				class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+				<a class="navbar-brand col-lg-3 me-10 text-white" href="/"
+					th:text="BUSSEANDOTOURS"></a>
+
+				<ul
+					class="nav col-12 col-lg-auto me-lg-auto mb-50 justify-content-center mb-md-0">
+					<li><a th:href="@{/}"
+						class="navbar-brand px-1 col-lg-2 me-3 text-white">Inicio</a></li>
+
+					
+					<li><a
+						th:href="@{/ventas/listarcompra/{id}(id=${#authentication.principal.id})}"
+						class="navbar-brand px-1 col-lg-2 me-3 text-white">Mis Compras</a></li>
+						
+					<li><a
+						th:href="@{/reservas/listarreserva/{id}(id=${#authentication.principal.id})}"
+						class="navbar-brand px-1 col-lg-2 me-3 text-white">Mis Reservas</a></li>
+				
+					<h4>
+					<select class="bg-success text-white text-center border-0"
+						onchange="location = this.value;">
+						<option selected disabled class="text-danger">MANTENIMIENTO</option>
+						<option value="/usuarios">Usuarios</option>
+						<option value="/paquete/listar2">Paquetes</option>
+						<option value="/ventas/listar">Ventas</option>
+						<option value="/pasajero/listar">Pasajeros</option>
+						<option value="/reservas/listar">Reservas</option>
+						<option value="/comprobante/listar">Comprobantes</option>
+					</select></h4>
+
+					<h4>
+					<select class="bg-success text-white text-center border-0"
+						onchange="location = this.value;">
+						<option selected disabled class="text-danger">SERVICIOS</option>
+						<option value="/alimentacion/listado">Alimentario</option>
+						<option value="/serviciohoteleria/listado">Hoteleria</option>
+						<option value="/guia/listado">Guía</option>
+						<option value="/bus/listado">Bus</option>
+						<option value="/conductor/listado">Conductor</option>
+					</select></h4>
+				</ul>
+
+
+				<div class="text-end" bis_skin_checked="1">
+
+					
+
+					<button type="button" class="btn btn-outline-danger  btn-lg "
+						sec:authorize="isAuthenticated()">
+						<a th:href="@{/logout}" class="navbar-brand text-light">CERRAR
+							SESION</a>
+					</button>
+
+				</div>
+			</div>
+		</div>
+
+
+	</header>
+
+
+
+
+
+</body>
+
+<footer class="container-fluid py-5 green-bg custom-footer">
+    <div class="row">
+        <div class="col-6 col-md mx-auto">
+            <small class="d-block mb-3 text-muted">© 2023</small>
+            <p>Todos los derechos reservados.</p>
+        </div>
+        <div class="col-6 col-md mx-auto">
+            <h5>Redes</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="link-secondary" href="#">Instagram</a></li>
+                <li><a class="link-secondary" href="#">Facebook</a></li>
+                <li><a class="link-secondary" href="#">Twitter</a></li>
+                <li><a class="link-secondary" href="#">WhatsApp</a></li>
+            </ul>
+        </div>
+        <div class="col-6 col-md mx-auto">
+            <h5>Contacto</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="link-secondary" href="#">Dirección: Av. San Juan 314</a></li>
+                <li><a class="link-secondary" href="#">Telf: 953 999 337</a></li>
+                <li><a class="link-secondary" href="#">Correo: busseandocontact@busseando.com</a></li>
+            </ul>
+        </div>
+        <div class="col-6 col-md mx-auto">
+            <h5>Enlaces Importantes</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="link-secondary" href="#">Términos y Condiciones</a></li>
+                <li><a class="link-secondary" href="#">Política de Privacidad</a></li>
+                <li><a class="link-secondary" href="#">Preguntas Frecuentes</a></li>
+                <li><a class="link-secondary" href="#">Mapa del Sitio</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Comprobante</title>
+
+<!-- Core theme CSS (includes Bootstrap)-->
+<link th:href="@{/css/styles.css}" rel="stylesheet" />
+
+<body>
+	<header th:replace="/Plantilla :: header"></header>
+
+	<br>
+
+
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-8">
+				<div class="card mt-3">
+						<div class="card-body">
+							<form th:action="@{/comprobante/save}" method="post"
+								th:object="${comprobante}" 
+								enctype="multipart/form-data">
+									<div class="row">
+							
+							
+							
+									<h4 class="text-success text-center" style="letter-spacing: 3px;">DATOS DEL COMPROBANTE</h4>
+									<br><hr><br>
+									
+									<div class="form-group row">
+    								<label class="col-sm-6 col-form-label font-weight-bold" style="font-size: 18px; font-family: 'Arial', sans-serif;">Tipo Comprobante:</label>
+    								<div class="col-sm-6">
+        							<input type="text" th:value="${venta.TipoComprobante}" class="form-control" readonly>
+    								</div>
+									</div>
+									
+									<div class="form-group row">
+    								<label class="col-sm-6 col-form-label font-weight-bold" style="font-size: 18px; font-family: 'Arial', sans-serif;">Nombre Usuario:</label>
+    								<div class="col-sm-6">
+        							<input type="text" th:value="${venta.Usuario.get(0).nombre}" class="form-control"  readonly>
+    								</div>
+									</div>
+									
+									<div class="form-group row">
+    								<label class="col-sm-6 col-form-label font-weight-bold" style="font-size: 18px; font-family: 'Arial', sans-serif;">Tipo Doc:</label>
+    								<div class="col-sm-6">
+        							<input type="text"  id="tDoc" th:field="*{TipoDocumento}" class="form-control" readonly>
+    								</div>
+									</div>
+									
+									<div class="form-group row">
+    								<label class="col-sm-6 col-form-label font-weight-bold" style="font-size: 18px; font-family: 'Arial', sans-serif;">N° Doc:</label>
+    								<div class="col-sm-6">
+        							<input type="text" id="nDoc" th:field="*{NroDocumento}"  class="form-control" readonly>
+    								
+    								</div>
+									</div>
+									
+									<div class="form-group row">
+    								<label class="col-sm-6 col-form-label font-weight-bold" style="font-size: 18px; font-family: 'Arial', sans-serif;">ID Reserva:</label>
+    								<div class="col-sm-6">
+        							<input type="text" th:value="${venta.Reserva.idReserva}" class="form-control" readonly>
+    								</div>
+									</div>
+									
+									<div class="form-group row">
+    								<label class="col-sm-6 col-form-label font-weight-bold" style="font-size: 18px; font-family: 'Arial', sans-serif;">Destino Viaje:</label>
+    								<div class="col-sm-6">
+        							<input type="text" th:value="|${venta.Reserva.Paquete.lugarDestino}|" class="form-control"  readonly>
+    								</div>
+									</div>
+									
+									<div class="form-group row">
+    								<label class="col-sm-6 col-form-label font-weight-bold" style="font-size: 18px; font-family: 'Arial', sans-serif;">Número de Pasajeros:</label>
+    								<div class="col-sm-6">
+        							<input type="text" th:value="${venta.Reserva.nroPasajeros}"  class="form-control"  readonly>
+    								</div>
+									</div>
+									
+									<div class="form-group row">
+    								<label class="col-sm-6 col-form-label font-weight-bold" style="font-size: 18px; font-family: 'Arial', sans-serif;">Precio Paquete:</label>
+    								<div class="col-sm-6">
+        							<input type="text" th:value="|S/${venta.Reserva.Paquete.precioUnidad}|" class="form-control"  readonly>
+    								</div>
+									</div>
+									
+									<div class="form-group row">
+    								<label class="col-sm-6 col-form-label font-weight-bold" style="font-size: 18px; font-family: 'Arial', sans-serif;">Precio Total:</label>
+    								<div class="col-sm-6">
+        							<input type="text" id="Total" class="form-control" th:field="*{Total}" readonly>
+    								</div>
+									</div>
+									
+									<input type="hidden"  th:field="*{Venta}" id="Venta" readonly />	
+									
+									<input type="hidden" th:field="*{FechaEmision}"  id="FechaEmision" readonly />							
+									
+									<div class="card-footer text-center">
+                					<h4>
+									<label class="m-2">
+					            	<input type="radio" name="TipoComprobante" th:field="*{TipoComprobante}" value="BOLETA">
+					            	BOLETA
+					        		</label>
+					        		<label class="m-2">
+					           	 	<input type="radio" name="TipoComprobante" th:field="*{TipoComprobante}" value="FACTURA">
+					            	FACTURA
+					        		</label>
+					    			</h4>
+	        						</div>
+									</div>
+								
+
+									<div class="card-footer bg-success text-center">
+									<button type="submit" class="btn btn-outline-light me-2 btn-lg">REGISTRAR</button>
+									</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+<script>
+		var today = new Date();
+		var dd = String(today.getDate()).padStart(2, '0');
+		var mm = String(today.getMonth() + 1).padStart(2, '0'); //Enero es 0
+		var yyyy = today.getFullYear();
+		var formattedDate = yyyy + '-' + mm + '-' + dd;
+		document.getElementById("FechaEmision").value = formattedDate;
+</script>
+
+<script>
+  var Venta = document.getElementById("Venta");
+  var Total = document.getElementById("Total");
+  var tDoc = document.getElementById("tDoc");
+  var nDoc = document.getElementById("nDoc");
+
+  Venta.value = "[[${venta.idVentas}]]";
+  Total.value = "[[${venta.total}]]";
+  tDoc.value = "[[${venta.Reserva.tipoDoc}]]";
+  nDoc.value = "[[${venta.Reserva.nroDoc}]]";
+</script>
+
+	
+<!-- Bootstrap core JS-->
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<!-- Core theme JS-->
+<script th:src="@{/js/scripts.js}"></script>
+</body>
+</html>

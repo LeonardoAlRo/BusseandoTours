@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head th:fragment="head">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Ingrese su tarjeta</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    </head>
+    
+    
+    <body>
+        <header th:replace="/Plantilla :: header"></header>
+                <!-- Page content-->
+                
+                
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+      <h1 class="display-4 fw-normal"></h1>
+    </div>
+
+  <main>
+  <div class="container" >
+    <div class="card" style="width: 94rem;">
+    <form th:action="@{/ventas/save}" method="post" th:object="${venta}" enctype="multipart/form-data">	
+      <div class="pricing-header p-3 pb-md-4 mx-auto ">
+        <h1 class="text-success text-center" style="letter-spacing: 3px;">TARJETA</h1>
+        
+       
+          <div class="row g-3 col-sm-12">
+          <h4>
+            
+              <label for="firstName" class="form-label">Nombres</label>
+              <input type="text" class="form-control" id="firstName" placeholder="Digite sus nombre completo " value="" required>
+              
+              <label for="lastName" class="form-label">Apellidos</label>
+              <input type="text" class="form-control" id="lastName" placeholder="Digite su apellido completo" value="" required>    
+		  </h4>
+
+          <hr>
+  
+			
+          <div class="row gy-3">
+	            <div class="col-md-6">
+	              <label for="cc-name" class="form-label">Tipo de tarjeta</label>
+	              <input type="text" class="form-control" id="cc-name" placeholder="Tarjeta..." required>
+	              <small class="text-muted">VISA o MASTERCARD</small>
+	            </div>
+	
+	            <div class="col-md-6">
+	              <label for="cc-number" class="form-label">Numero de la tarjeta</label>
+	              <input type="text" class="form-control" id="cc-number" placeholder="000-000000000-00" required>
+	            </div>
+	
+	            <div class="col-md-6">
+	              <label for="cc-expiration" class="form-label">Fecha de expiracion</label>
+	              <input type="text" class="form-control" id="cc-expiration" placeholder="00-00" required>
+	            </div>
+	
+	            <div class="col-md-6">
+	              <label for="cc-cvv" class="form-label">CVV</label>
+	              <input type="text" class="form-control" id="cc-cvv" placeholder="00-00" required>
+	            </div>
+  				<hr>
+  				
+					<div class="col-md-6">
+					<strong>Total a pagar:
+        			<input type="text" th:field="*{total}"  id="Total" readonly>
+					</strong></div>	
+					
+					<div class="col-md-6">
+            		<strong>Fecha:</strong>
+            		<input type="date" th:field="*{fechaVenta}"  id="FechaVenta" readonly>
+            		</div>	
+            </div>	
+            	
+	    			<input type="hidden" th:field="*{reserva}" id="Reserva"></input>
+	        		<input type="hidden" th:field="*{usuario}" id="usuarioId" />
+	        		<input type="hidden" th:field="*{documentoGenerado}" id="estado" />
+	        		<input type="hidden" th:field="*{correo}" id="usuarioEmail" />
+			</div>
+            	<div class="card-footer text-center">
+                	<h4><label class="m-2">
+	            	<input type="radio" name="TipoComprobante" th:field="*{TipoComprobante}" value="BOLETA">
+	            	BOLETA
+	        		</label>
+	        		<label class="m-2">
+	           	 	<input type="radio" name="TipoComprobante" th:field="*{TipoComprobante}" value="FACTURA">
+	            	FACTURA
+        			</label></h4>
+	        	</div>
+	        	<div class="card-footer bg-success text-center">
+	        		<button type="submit" class="btn btn-outline-light me-2 btn-lg">PAGAR</button>
+           		</div>
+				
+			</div>	
+			</form>
+			</div>     	
+        </div>	
+
+  
+    
+    <!-- Bootstrap core JS-->
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/scripts.js}"></script>
+        
+<script>
+		var today = new Date();
+		var dd = String(today.getDate()).padStart(2, '0');
+		var mm = String(today.getMonth() + 1).padStart(2, '0'); //Enero es 0
+		var yyyy = today.getFullYear();
+		var formattedDate = yyyy + '-' + mm + '-' + dd;
+		document.getElementById("FechaVenta").value = formattedDate;
+</script>	
+
+<script>
+var usuarioId = "[[${#authentication.principal.id}]]";
+var usuarioEmail = "[[${#authentication.principal.username}]]";
+  var reservaInput = document.getElementById("Reserva");
+  var Total = document.getElementById("Total");
+  var estado = document.getElementById("estado");
+  
+  reservaInput.value = "[[${reserva.idReserva}]]";
+  Total.value = "[[${reserva.nroPasajeros}]]" * "[[${reserva.Paquete.precioUnidad}]]";
+  document.getElementById("usuarioId").value = usuarioId;
+  estado.value = 0;
+  document.getElementById("usuarioEmail").value = usuarioEmail;
+</script>
+</main>
+
+
+   <!-- 	Pie de pagina -->
+        <footer th:replace="/Plantilla :: footer"></footer>
+
+ </body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/Plantilla :: head">
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+<link th:href="@{/css/bootstrap/bootstrap.css}" rel="stylesheet">
+
+</head>
+<body>
+	<header th:replace="/Plantilla :: header"></header>
+
+	<br>
+	<h5>
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-7">
+					<div class="card mt-3">
+
+						<div class="card-header bg-success text-white"
+							style="letter-spacing: 3px;">FORMULARIO : NUEVO BUS</div>
+
+						<div class="card-body">
+
+							<!-- metodo para guardar con save -->
+							<form th:action="@{/bus/save}" th:object="${buses}" method="post"
+								enctype="multipart/form-data">
+
+
+
+								<div class="form-group row">
+									<label for="placa"
+										class="col-md-4 col-form-label text-md-right">Placa:</label><br>
+									<br>
+									<div class="col-md-8">
+										<input type="text" th:field="*{placa}"
+											class="form-control form-control-lg" id="placa"
+											placeholder="Placa del Bus">
+									</div>
+								</div>
+								<br>
+
+								<div class="form-group row">
+									<label for="tipo" class="col-md-4 col-form-label text-md-right">Tipo:</label><br>
+									<br>
+									<div class="col-md-8">
+										<input type="text" th:field="*{tipo}"
+											class="form-control form-control-lg" id="tipo"
+											placeholder="Tipo de Bus">
+									</div>
+								</div>
+
+								<br>
+
+
+								<div class="card-footer bg-success">
+									<input type="submit" class="btn btn-outline-light me-2 btn-lg" />
+								</div>
+								<br>
+
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</h5>
+
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+</body>
+</html>

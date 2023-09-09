@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/Plantilla :: head">
+<meta charset="UTF-8">
+</head>
+<body onload="document.getElementById('fecha').value = fechaActual();">
+	<header th:replace="/Plantilla :: header"></header>
+
+	<br>
+
+
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-8">
+				<div class="card mt-3">
+					<div class="card-body">
+
+
+						<form th:action="@{/reservas/a{idPaquete}/saveReserva(idPaquete=${idPaquete})}" method="post"
+							th:object="${reservas}" enctype="multipart/form-data">
+
+
+							
+
+							<div class="row">
+								<h4 class="text-success text-center" style="letter-spacing: 3px;">DATOS DE LA RESERVA</h4>
+								<hr>
+								<div class="col-12">
+									
+									<input type="hidden" th:value="${idPaquete}"
+									th:field="*{Paquete}" id="Paquete"></input>
+									
+									<input type="hidden" th:field="*{usuario}" id="usuarioId" />
+									
+									<input type="hidden" th:field="*{nroRegistrados}" id="NroRegistrados" />
+									
+									<input type="hidden" th:field="*{estado}" id="estado" />
+									
+									<br>
+									<div class="form-group row">
+											<label for="TipoDoc" class="col-md-5"><strong>TIPO DOCUMENTO:</strong></label>
+												<div class="col-md-7">
+													<select class="form-control form-control-lg" id="TipoDocSelect">
+														<option selected disabled>SELECCIONE UNA OPCION</option>
+														<option value="DNI">DNI</option>
+														<option value="RUC">RUC</option>
+													</select> <input type="hidden" th:field="*{TipoDoc}" id="TipoDocInput" />
+												</div>
+									</div>
+									
+									<p>
+										<strong>NÚMERO DOC:</strong><br> <input type="text"
+											th:field="*{nroDoc}" class="form-control form-control-lg"
+											id="NroDoc" placeholder="NÚMERO DE DOCUMENTO">
+									</p>   
+									
+									<p>
+										<strong>NÚMERO PASAJERO:</strong><br> <input type="text"
+											th:field="*{nroPasajeros}" class="form-control form-control-lg"
+											id="NroPasajeros" placeholder="NÚMERO DE DOCUMENTO">
+									</p>
+									
+									
+									
+									
+									<p>
+										<strong>FECHA RESERVA:</strong> <input type="date"
+											th:field="*{FechaReserva}"
+											class="form-control form-control-lg" id="FechaReserva"
+											placeholder="Fecha Reserva" style="border: none;">
+									</p>
+									
+								</div>
+								
+							</div>
+
+							<hr>							
+
+
+							<div class="card-footer bg-success text-center">
+								<button type="submit" class="btn btn-outline-light me-2 btn-lg">GENERAR</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<script>
+	var usuarioId = "[[${#authentication.principal.id}]]";
+	var paqueteInput = document.getElementById("Paquete");
+    var nroRegistrados = document.getElementById("NroRegistrados");
+    var estado = document.getElementById("estado");
+    var today = new Date();
+	var dd = String(today.getDate()).padStart(2, '0');
+	var mm = String(today.getMonth() + 1).padStart(2, '0'); //Enero es 0
+	var yyyy = today.getFullYear();
+	var formattedDate = yyyy + '-' + mm + '-' + dd;
+	
+	document.getElementById("FechaReserva").value = formattedDate;
+    paqueteInput.value = "[[${idPaquete}]]";
+    nroRegistrados.value = 0;
+    estado.value = "PENDIENTE"; 
+    document.getElementById("usuarioId").value = usuarioId;
+    document.getElementById("TipoDocSelect").addEventListener("change", function() {
+	document.getElementById("TipoDocInput").value = this.value;});
+</script>
+
+
+</body>
+</html>
